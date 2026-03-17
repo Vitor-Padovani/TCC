@@ -3,7 +3,10 @@
 ## Setup
 ```
 python -m venv venv
-source venv/bin/activate
+
+source venv/bin/activate OU
+venv\Scripts\activate
+
 pip install -r requirements.txt
 ```
 
@@ -12,4 +15,12 @@ pip install -r requirements.txt
 - Adição de bibliotecas
 ```
 pip freeze > requirements.txt
+```
+
+## Possiveis problemas
+
+Caso o kernel do notebook não esteja encontrando alguma biblioteca, execute:
+```
+import sys
+!{sys.executable} -m pip install [nome da biblioteca]
 ```

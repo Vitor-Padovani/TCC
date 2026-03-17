@@ -6,3 +6,4 @@ data/raw/
 *.gz
 *.toc
 data/processed/*.parquet
+thesis/backup.txt
