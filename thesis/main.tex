@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{report}
+
+% ======================
+% PACOTES BÁSICOS
+% ======================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+
+\geometry{margin=3cm}
+\onehalfspacing
+
+% ======================
+% DADOS DO TRABALHO
+% ======================
+\title{Título do Trabalho}
+\author{Seu Nome}
+\date{Ano}
+
+% ======================
+\begin{document}
+
+% ======================
+% CAPA
+% ======================
+\begin{titlepage}
+    \centering
+    {\large NOME DA INSTITUIÇÃO \par}
+    \vspace{2cm}
+    
+    {\Large\textbf{Seu Nome} \par}
+    \vspace{2cm}
+    
+    {\LARGE\textbf{TÍTULO DO TRABALHO} \par}
+    \vspace{2cm}
+    
+    {\large Trabalho de Conclusão de Curso apresentado como requisito para obtenção do título de ... \par}
+    \vspace{1cm}
+    
+    {\large Orientador: Nome do Orientador \par}
+    \vfill
+    
+    {\large Cidade \par}
+    {\large Ano \par}
+\end{titlepage}
+
+% ======================
+% RESUMO
+% ======================
+\chapter*{Resumo}
+Texto do resumo aqui.
+
+\textbf{Palavras-chave:} palavra1; palavra2; palavra3.
+
+% ======================
+% SUMÁRIO
+% ======================
+\tableofcontents
+\newpage
+
+% ======================
+% INTRODUÇÃO
+% ======================
+\chapter{Introdução}
+Aqui você apresenta o tema, problema, objetivos e justificativa.
+
+% ======================
+% REFERENCIAL TEÓRICO
+% ======================
+\chapter{Referencial Teórico}
+Discussão teórica e revisão da literatura.
+
+% ======================
+% METODOLOGIA
+% ======================
+\chapter{Metodologia}
+Descreva como o trabalho foi realizado.
+
+% ======================
+% RESULTADOS
+% ======================
+\chapter{Resultados}
+Apresente os resultados obtidos.
+
+% ======================
+% CONCLUSÃO
+% ======================
+\chapter{Conclusão}
+Conclusões finais e trabalhos futuros.
+
+% ======================
+% REFERÊNCIAS
+% ======================
+\begin{thebibliography}{9}
+
+\bibitem{exemplo}
+Autor. \textit{Título do livro}. Editora, ano.
+
+\end{thebibliography}
+
+\end{document}

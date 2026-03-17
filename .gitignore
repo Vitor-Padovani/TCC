@@ -1,2 +1,8 @@
 .venv/
 data/raw/
+*.aux
+*.log
+*.pdf
+*.gz
+*.toc
+data/processed/*.parquet
