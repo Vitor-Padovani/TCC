@@ -12,6 +12,7 @@
 \usepackage{graphicx}
 
 \usepackage[alf]{abntex2cite} % estilo autor-data (tipo CiteOnLine)
+\usepackage{acronym}
 
 \geometry{margin=3cm}
 \onehalfspacing
@@ -40,10 +41,10 @@
     {\LARGE\textbf{Análise de Logs de Rede para Detecção de Anomalias Utilizando Aprendizado de Máquina: Uma Extensão com Engenharia de Atributos e Avaliação Comparativa Aprofundada} \par}
     \vspace{2cm}
     
-    {\large Trabalho de Conclusão de Curso apresentado como requisito para obtenção do título de bacharel \par}
+    {\large Trabalho de Conclusão de Curso \par}
     \vspace{1cm}
     
-    {\large Orientador: Luciana Andréia Fondazzi Martimiano \par}
+    {\large Orientadora: Luciana Andréia Fondazzi Martimiano \par}
     \vfill
     
     {\large Maringá \par}
@@ -86,10 +87,50 @@ Forest e One-Class SVM utilizando métricas adequadas para \textit{datasets} des
 \newpage
 
 % ======================
+% SIGLAS E ABREVIAÇÕES
+% ======================
+\chapter*{Lista de Siglas e Abreviaturas}
+\begin{acronym}
+	\acro{IA}{Inteligência Artificial}
+	\acro{ML}{Machine Learning}
+	\acro{NPD}{Núcleo de Processamento de Dados}
+	\acro{UEM}{Universidade Estadual de Maringá}
+	\acro{URI}{Uniform Resource Identifier}
+	\acro{IP}{Internet Protocol}
+	\acro{NIST}{National Institute of Standards and Technology}
+	\acro{CID}{Confidencialidade, Integridade e Disponibilidade}
+	\acro{LGPD}{Lei Geral de Proteção de Dados}
+	\acro{MITM}{Man-in-the-Middle}
+	\acro{ARP}{Address Resolution Protocol}
+	\acro{MAC}{Media Access Control}
+	\acro{IDS}{Intrusion Detection System}
+	\acro{AAA}{Authentication, Authorization and Accountability}
+	\acro{VPN}{Virtual Private Network}
+	\acro{MFA}{Multi-Factor Authentication}
+	\acro{SIEM}{Security Information and Event Management}
+	\acro{SVM}{Support Vector Machine}
+\end{acronym}
+
+% ======================
 % INTRODUÇÃO
 % ======================
-\chapter{Introdução}
-Aqui você apresenta o tema, problema, objetivos e justificativa.
+\chapter*{Introdução}
+
+Com a crescente digitalização de serviços e o uso de sistemas interconectados, a segurança computacional tornou-se um desafio central para organizações. Aplicações web, em especial, apresentam alta exposição a ameaças, sendo frequentemente alvo de ataques automatizados e exploração de vulnerabilidades. Relatórios recentes indicam aumento contínuo na frequência e complexidade desses ataques, impulsionado, entre outros fatores, pelo uso de inteligência artificial por agentes maliciosos \cite{forbes2024}. Esse cenário reforça a necessidade de mecanismos eficazes de monitoramento e detecção de comportamentos anômalos.
+
+Nesse contexto, logs de rede são fundamentais, pois registram eventos detalhados sobre sistemas e usuários, sendo a principal fonte para auditoria e detecção de incidentes. Logs de servidores web, como o Nginx, incluem informações como requisições HTTP, endereços IP e códigos de resposta, permitindo reconstruir interações com o sistema. Estudos mostram que sua análise é essencial para identificar atividades maliciosas \cite{hussein2024, komadina2024}.
+
+Entretanto, a análise de logs apresenta desafios relevantes. Grandes volumes de dados são gerados continuamente, muitas vezes em formatos não estruturados, dificultando a interpretação manual. Além disso, anomalias tendem a ser raras e sutis, ocultas em meio a comportamentos normais \cite{hussein2024}. Essa combinação torna inviável a análise manual, exigindo abordagens automatizadas.
+
+Diante desse cenário, técnicas de aprendizado de máquina têm se consolidado como uma abordagem promissora para a detecção de anomalias em logs. A detecção de anomalias consiste em identificar padrões que se desviam significativamente do comportamento esperado, podendo indicar falhas, erros ou atividades maliciosas. Métodos não supervisionados, como Isolation Forest e One-Class SVM, são particularmente relevantes nesse domínio, pois não dependem de dados previamente rotulados, característica importante em cenários reais onde a rotulação de ataques é limitada ou inexistente. Esses métodos são capazes de identificar tanto ataques conhecidos quanto comportamentos inéditos, contribuindo para a detecção de ameaças emergentes \cite{komadina2024}.
+
+Apesar dos avanços na área, a eficácia desses modelos está diretamente relacionada à qualidade da representação dos dados utilizada como entrada. Trabalhos recentes apontam que muitos métodos utilizam representações simplificadas dos logs, desconsiderando informações semânticas e contextuais relevantes, como padrões de acesso ao longo do tempo ou características detalhadas das requisições. Essa limitação pode comprometer a capacidade dos modelos de capturar anomalias mais complexas, especialmente aquelas relacionadas ao comportamento de usuários ou à exploração de recursos específicos do sistema \cite{chen2024semantic}.
+
+Nesse contexto, o trabalho de Maziero (2024) representa uma contribuição inicial ao aplicar algoritmos de aprendizado de máquina não supervisionado na detecção de anomalias em logs reais do servidor Nginx da Universidade Estadual de Maringá (UEM). Contudo, sua abordagem baseia-se em um conjunto restrito de atributos, o que limita o aproveitamento das informações disponíveis nos logs.
+
+Dessa forma, o presente trabalho tem como objetivo geral desenvolver um pipeline de detecção de anomalias em logs de rede com foco no enriquecimento da representação dos dados por meio de engenharia de atributos. Especificamente, busca-se incorporar informações semânticas da URI, padrões temporais de comportamento por endereço IP e características do \textit{User Agent}, avaliando o impacto dessas informações no desempenho dos algoritmos Isolation Forest e One-Class SVM.
+
+A motivação deste trabalho está na necessidade de aprimorar a gestão de logs e fortalecer a segurança da infraestrutura computacional da UEM. Ao propor uma abordagem mais rica em termos de representação de dados e mais rigorosa em termos de avaliação, espera-se contribuir para a detecção mais precisa de anomalias. Além disso, a solução proposta possui potencial de replicação em outros ambientes institucionais, contribuindo para o avanço da aplicação de técnicas de aprendizado de máquina na área de segurança da informação.
 
 % ======================
 % REFERENCIAL TEÓRICO
@@ -115,16 +156,16 @@ expostos \cite{stallings2014}. Além de proteger dados em trânsito, a
 disciplina se preocupa com a continuidade dos negócios, a minimização de
 riscos e a proteção dos investimentos organizacionais, o que exige como
 primeiro passo uma análise cuidadosa do que deve ser protegido e de quais
-ameaças precisam ser consideradas~\cite{hintzbergen2018}.
+ameaças precisam ser consideradas \cite{hintzbergen2018}.
 
 Para padronizar esses requisitos entre diferentes sistemas e
 organizações, o \textit{National Institute of Standards and Technology}
 (NIST) publicou diretrizes para categorização de informações e sistemas
 de informação~\cite{nist2004}, a partir das quais a segurança da
-informação passou a ser descrita por três pilares fundamentais —
-Confidencialidade, Integridade e Disponibilidade (CID) —, dos quais se
+informação passou a ser descrita por três pilares fundamentais:
+Confidencialidade, Integridade e Disponibilidade (CID), dos quais se
 derivam os demais conceitos da área. Complementarmente,
-\citeonline{kurose2021} identifica quatro propriedades essenciais de uma
+\citeonline{kurose2021} identificam quatro propriedades essenciais de uma
 comunicação segura: confidencialidade, integridade de mensagem,
 autenticação de ponto final e segurança operacional.
 
@@ -133,7 +174,7 @@ autenticação de ponto final e segurança operacional.
 Confidencialidade é a propriedade que garante que uma mensagem só pode
 ser lida por aqueles a quem ela se destina. Do ponto de vista do NIST,
 trata-se de preservar restrições de acesso e divulgação, protegendo a
-privacidade pessoal e informações proprietárias — sendo a perda de
+privacidade pessoal e informações proprietárias, sendo a perda de
 confidencialidade caracterizada pela revelação não autorizada de
 informações~\cite{nist2004}.
 
@@ -142,7 +183,7 @@ O conceito se desdobra em dois aspectos complementares: a
 informações privadas aos indivíduos autorizados; e a
 \textit{privacidade}, que devolve ao titular dos dados o controle sobre
 quem pode coletá-los, armazená-los e acessá-los~\cite{stallings2014}.
-Essa proteção deve se estender por todo o ciclo de vida da informação —
+Essa proteção deve se estender por todo o ciclo de vida da informação,
 enquanto ela estiver armazenada em sistemas, em trânsito pela rede e ao
 chegar ao destino~\cite{hintzbergen2018}.
 
@@ -169,7 +210,7 @@ O NIST define integridade como a salvaguarda da informação contra
 modificação ou destruição imprópria, incluindo a garantia de
 autenticidade e não repúdio. A perda dessa propriedade se caracteriza
 pela destruição ou alteração não autorizada de dados~\cite{nist2004}.
-Segundo /citeonline{stallings2014}, a integridade abrange dois níveis: a
+Segundo \citeonline{stallings2014}, a integridade abrange dois níveis: a
 \textit{integridade de dados}, que determina que informações e programas
 só sejam alterados por processos e pessoas autorizadas; e a
 \textit{integridade de sistema}, que exige que um programa ou sistema
@@ -182,8 +223,8 @@ protocolo ARP traduz endereços IP, da camada de rede, para endereços MAC,
 na camada de enlace. No ataque, as respostas ARP são falsificadas para
 redirecionar o tráfego por uma máquina controlada pelo atacante, que
 passa a interceptar a comunicação. O resultado é a violação simultânea da
-integridade — pela adulteração das respostas — e da confidencialidade —
-pelo acesso indevido às informações trocadas~\cite{fortinet2024}.
+integridade, pela adulteração das respostas, e da confidencialidade,
+pelo acesso indevido às informações trocadas \cite{fortinet2024}.
 Tecnicamente, a integridade pode ser verificada por meio de somas de
 verificação e funções de \textit{hash} criptográfico aplicadas nas
 camadas de enlace e transporte~\cite{kurose2021}.
@@ -205,7 +246,7 @@ evidenciando a crescente demanda por ambientes resilientes.
 
 O NIST define disponibilidade como a garantia do acesso oportuno e
 confiável à informação e aos sistemas, sendo sua perda a interrupção
-desse acesso~\cite{nist2004}. /citeonline{hintzbergen2018} decompõe essa
+desse acesso~\cite{nist2004}. \citeonline{hintzbergen2018} decompõe essa
 propriedade em três características: \textit{oportunidade} (informações
 acessíveis quando necessário), \textit{continuidade} (manutenção do
 serviço mesmo em caso de falha) e \textit{robustez} (capacidade de
@@ -225,7 +266,7 @@ complementares~\cite{convery2007}.
 
 \subsubsection{Autenticação}
 
-Autenticação responde à pergunta \textit{"Quem é você?"}~\cite{
+Autenticação responde à pergunta \textit{"Quem é você?"} \cite{
 	convery2007}. É o mecanismo que verifica se um usuário é de fato quem
 alega ser antes de conceder qualquer acesso. Em um cenário de acesso
 remoto via VPN, por exemplo, a autenticação por senha ou por múltiplos
@@ -234,14 +275,14 @@ comprometer o sistema.
 
 \subsubsection{Autorização}
 
-Autorização responde à pergunta \textit{"O que você pode fazer?"}~\cite{
+Autorização responde à pergunta \textit{"O que você pode fazer?"} \cite{
 	convery2007}. Mesmo após autenticado, um usuário deve operar apenas dentro
 dos limites do seu perfil. Um estagiário com acesso integral à
-infraestrutura de rede representa um risco latente — não pela intenção,
+infraestrutura de rede representa um risco latente, não pela intenção,
 mas pela possibilidade de consequências graves a partir de ações
 cotidianas fora do escopo de sua função. O princípio do
-\textit{Least Privilege} — conceder apenas os privilégios estritamente
-necessários — é a forma mais direta de mitigar esse risco.
+\textit{Least Privilege}, conceder apenas os privilégios estritamente
+necessários, é a forma mais direta de mitigar esse risco.
 
 \subsubsection{Não Repúdio}
 
@@ -261,335 +302,7 @@ comportamentos suspeitos antes que causem danos~\cite{convery2007}.
 \section{Gerenciamento de Redes}
 % ─────────────────────────────────────────────────────────────────────────────
 
-Redes de computadores surgem pequenas e gerenciáveis, mas crescem em
-complexidade à medida que aumentam o número de usuários, a diversidade de
-dispositivos e a abrangência geográfica. Uma rede corporativa madura pode
-envolver múltiplos escritórios remotos, usuários em regime de
-\textit{home office} conectados por VPN, e serviços críticos distribuídos
-por diferentes data centers — cada um introduzindo novas camadas de
-complexidade em segurança, configuração e monitoramento.
-
-Independente da escala, redes de alta demanda precisam estar
-continuamente disponíveis para usuários autorizados, ser resilientes a
-falhas físicas e lógicas, garantir a segurança das comunicações e operar
-dentro dos parâmetros definidos em acordos de nível de serviço
-(SLA, \textit{Service Level Agreement}). Satisfazer esses requisitos
-exige sistemas de gerenciamento e monitoramento que automatizem tarefas,
-detectem problemas proativamente e otimizem o uso dos recursos.
-
-Do ponto de vista arquitetural, o gerenciamento de redes opera por meio
-de três elementos: os \textit{gerenciadores}, que supervisionam grupos de
-dispositivos; os \textit{dispositivos gerenciados}, que expõem dados de
-configuração e desempenho; e os \textit{agentes}, softwares embarcados nos
-dispositivos que coletam e formatam esses dados para o
-gerenciador~\cite{aboubakar2022}.
-
-O escopo funcional do gerenciamento de redes é descrito por cinco áreas
-interdependentes~\cite{pinheiro2002}:
-
-\begin{description}
-	\item[Gerenciamento de Configuração:] mantém o inventário atualizado
-	dos dispositivos, suas versões de firmware, parâmetros de
-	configuração e histórico de mudanças, além de produzir relatórios
-	para auditoria.
-	
-	\item[Gerenciamento de Falhas:] monitora continuamente o ambiente em
-	busca de comportamentos anormais, registra os eventos encontrados e
-	coordena a recuperação antes que falhas se tornem indisponibilidades.
-	
-	\item[Gerenciamento de Segurança:] verifica se apenas usuários
-	autenticados e autorizados têm acesso aos recursos de rede, além de
-	manter os registros necessários para o não repúdio.
-	
-	\item[Gerenciamento de Desempenho:] coleta e analisa métricas de
-	utilização de enlaces e dispositivos, identificando gargalos antes
-	que afetem os usuários.
-	
-	\item[Gerenciamento de Contabilização:] controla o consumo de
-	recursos por usuário ou grupo, aplicando cotas quando necessário para
-	evitar que um único agente degrade o serviço para os demais.
-\end{description}
-
-\subsection{Logs de Rede}
-
-Entre as fontes de dados utilizadas no gerenciamento de redes, os logs
-ocupam posição central~\cite{tovarnak2019}. Trata-se de registros em
-formato textual não estruturado ou semiestruturado, produzidos de forma
-contínua por sistemas operacionais, aplicações, dispositivos de rede e
-servidores. Cada registro representa um evento ocorrido em um determinado
-instante — uma requisição recebida, uma falha detectada, uma conexão
-estabelecida ou encerrada.
-
-A relevância dos logs está na amplitude de informações que oferecem: um
-administrador pode utilizá-los para investigar incidentes, auditar ações
-de usuários, rastrear a origem de problemas de desempenho e identificar
-padrões de comportamento que antecedem falhas~\cite{kobayashi2019}. Como
-diferentes dispositivos e aplicações geram logs com formatos e semânticas
-distintos — uma impressora reporta falhas de comunicação de forma
-completamente diferente de um servidor web que registra requisições HTTP
-—, o tratamento padronizado dessas informações é um desafio
-técnico~\cite{oliner2012}.
-
-Segundo /citeonline{oliner2012}, os logs contribuem para a gestão de
-redes em quatro frentes:
-
-\begin{description}
-	\item[Performance:] logs que evidenciam operações de bloqueio,
-	saturação de recursos como CPU, disco e banda, e outros gargalos que
-	degradam o desempenho dos sistemas.
-	
-	\item[Segurança:] registros provenientes de \textit{firewalls},
-	roteadores e sistemas IDS/IPS, usados para detectar acessos não
-	autorizados, varreduras de rede e outros comportamentos
-	maliciosos.
-	
-	\item[Predição:] dados históricos de logs que alimentam modelos
-	preditivos — por exemplo, para antecipar picos de utilização em um
-	enlace com base em padrões de tráfego ao longo do tempo.
-	
-	\item[Perfil e Reportação:] construção de perfis de uso para
-	usuários, serviços e períodos do dia, que embasam relatórios
-	gerenciais e decisões de capacidade.
-\end{description}
-
-No contexto específico deste trabalho, os logs analisados são os
-registros de acesso (\textit{access logs}) do servidor web Nginx,
-administrado pelo NPD da UEM. Cada linha do arquivo registra uma
-requisição HTTP individual, contendo — entre outros campos — o endereço
-IP de origem, o \textit{timestamp} da requisição, o \textit{virtual host}
-acessado, o método HTTP, a URI solicitada, o código de status da resposta
-e o \textit{User Agent} do cliente. Com mais de dez milhões de linhas
-distribuídas ao longo de quinze dias, a análise manual desse volume de
-dados é inviável, o que motiva diretamente o uso de técnicas de
-aprendizado de máquina para automatizar a detecção de comportamentos
-anômalos.
-
-Quanto ao formato, os \textit{access logs} do Nginx seguem o
-\textit{Combined Log Format}, derivado do \textit{Common Log Format}
-(CLF) originalmente desenvolvido pelo Apache HTTP Server. Esse formato
-é amplamente documentado e reconhecido como padrão de
-facto para servidores web~\cite{iri2024}, o que facilita a construção de
-ferramentas de parsing e análise reutilizáveis entre diferentes
-ambientes.
-
-% ─────────────────────────────────────────────────────────────────────────────
-\section{Inteligência Artificial}
-% ─────────────────────────────────────────────────────────────────────────────
-
-O campo da inteligência artificial tem como marco fundador o artigo
-\textit{Computing Machinery and Intelligence}, publicado por Alan Turing
-em 1950, que introduziu a questão de se máquinas poderiam
-pensar~\cite{russell2022}. Desde então, a área evoluiu para a construção
-de sistemas capazes de aprender, raciocinar e agir de forma eficaz em
-ambientes variados. Hoje, a IA abrange desde subcampos gerais — como
-aprendizagem, percepção e raciocínio — até aplicações altamente
-específicas, como diagnóstico médico, condução autônoma de veículos e,
-no caso deste trabalho, detecção de anomalias em logs de
-rede~\cite{russell2022}.
-
-O modelo teórico que sustenta a implementação de sistemas de IA é o de
-\textit{agentes inteligentes}: entidades que percebem o ambiente por meio
-de sensores e atuam sobre ele por meio de atuadores. A inteligência do
-agente manifesta-se na capacidade de, com base no histórico de percepções
-acumuladas, selecionar ações que maximizem algum critério de desempenho —
-da mesma forma que um ser humano toma decisões com base em sua experiência
-e no contexto observado~\cite{russell2022}.
-
-Do ponto de vista prático, a IA pode ser direcionada a tarefas
-específicas — como classificar tráfego de rede em um sistema de
-\textit{firewall} — ou operar com escopo mais geral, como as ferramentas
-de IA generativa que produzem texto, imagens e outros conteúdos a partir
-de linguagem natural~\cite{ibm2024}. Aplicações como reconhecimento de
-fala, previsão meteorológica e detecção de anomalias demonstram a
-amplitude desse campo, possibilitada por sua natureza multidisciplinar,
-que envolve estatística, matemática, ciência da computação, neurociência
-e linguística.
-
-\subsection{Aprendizado de Máquina}
-
-O aprendizado de máquina é a subárea da IA que se ocupa de desenvolver
-algoritmos capazes de aprender padrões a partir de dados, sem a
-necessidade de programação explícita das regras que governam esse
-aprendizado. Em vez de receber instruções detalhadas sobre o que fazer
-em cada situação, um sistema de aprendizado de máquina constrói
-internamente um modelo estatístico do ambiente com base em exemplos
-observados, e usa esse modelo para generalizar — ou seja, para produzir
-respostas úteis diante de entradas que nunca viu
-antes~\cite{theobald2017}.
-
-Quando o agente inteligente é implementado por um sistema computacional
-que aprende por observação, o processo se qualifica como aprendizado de
-máquina~\cite{russell2022}. Essa capacidade é especialmente valiosa em
-dois cenários: quando o volume de dados é grande demais para análise
-humana direta, e quando os padrões de interesse são sutis o suficiente
-para escapar a inspeção manual~\cite{russell2022}.
-
-O campo do aprendizado de máquina se organiza em três paradigmas
-principais, que se distinguem pelo tipo de supervisão disponível durante
-o treinamento:
-
-\subsubsection{Aprendizado Supervisionado}
-
-No aprendizado supervisionado, os dados de treinamento incluem tanto as
-entradas quanto as saídas esperadas (os chamados \textit{rótulos}). O
-algoritmo aprende a mapear entradas em saídas a partir desses exemplos
-e, uma vez treinado, é capaz de predizer a saída para novas entradas
-nunca vistas~\cite{russell2022}. Um sistema de previsão de preços de
-imóveis, treinado com características de propriedades e seus valores de
-venda, exemplifica bem esse paradigma~\cite{theobald2017}.
-
-\subsubsection{Aprendizado Não Supervisionado}
-
-No aprendizado não supervisionado, os dados de treinamento contêm apenas
-as entradas — sem rótulos. O algoritmo deve descobrir, por conta própria,
-estruturas e padrões escondidos nos dados~\cite{russell2022}. Essa
-abordagem é particularmente útil quando a criação de rótulos é
-inviável — como no caso de logs de rede, onde rotular manualmente milhões
-de registros exigiria um esforço humano impraticável — ou quando os
-padrões de interesse variam ao longo do tempo e não podem ser antecipados
-em tempo de treinamento~\cite{theobald2017}. É o paradigma adotado neste
-trabalho.
-
-\subsubsection{Aprendizado Por Reforço}
-
-O aprendizado por reforço opera por um mecanismo diferente: o agente
-interage com o ambiente, recebe recompensas ou penalidades de acordo com
-as ações tomadas, e gradualmente aprende a selecionar as ações que
-maximizam o retorno acumulado~\cite{russell2022}. O treinamento de agentes
-para jogar xadrez ou videogames é um exemplo canônico: sem receber
-nenhuma instrução explícita sobre estratégia, o agente aprende a jogar
-bem simplesmente por tentativa e erro ao longo de milhões de
-partidas~\cite{theobald2017}.
-
-\subsection{Detecção de Anomalias}
-
-A detecção de anomalias é o problema de identificar, em um conjunto de
-dados, aquelas instâncias cujo comportamento difere significativamente
-do padrão estabelecido pela maioria~\cite{pang2021}. Denominadas também
-de \textit{outliers}, desvios, exceções ou discordâncias — a terminologia
-varia conforme a área de aplicação~\cite{xu2019} —, essas instâncias
-são de interesse especial em contextos de segurança: uma transação
-financeira atípica pode indicar fraude; um padrão incomum de acesso a uma
-URI pode sinalizar um ataque em curso.
-
-A relevância do aprendizado de máquina para esse problema está na escala:
-ferramentas que geram volumes massivos de dados não estruturados tornam
-a triagem manual impraticável. Algoritmos de detecção de anomalias
-assumem essa tarefa, entregando ao administrador um conjunto reduzido de
-registros suspeitos para análise humana final~\cite{liu2018}. O impacto
-é direto sobre a eficiência operacional: dados recentes indicam que 86\%
-das empresas entrevistadas pelo Cisco Cybersecurity Readiness Index
-sofreram incidentes de segurança no último ano~\cite{cisco2024},
-evidenciando que a capacidade de detectar comportamentos anômalos em tempo
-hábil é uma necessidade crítica.
-
-Além dos logs de rede, a detecção de anomalias por aprendizado de máquina
-é aplicada em monitoramento sísmico, análise de imagens médicas para
-diagnóstico de tumores, detecção de fraudes em transações financeiras e
-vigilância de infraestrutura industrial, entre outros domínios~\cite{
-	pang2021}.
-
-A biblioteca Scikit-Learn~\cite{sklearn2024} distingue dois modos de
-operação para detecção de anomalias, que se diferenciam pelo que se sabe
-sobre os dados de treinamento:
-
-\subsubsection{Outlier Detection}
-
-Neste modo, assume-se que os dados de treinamento já contêm anomalias
-misturadas com registros normais, em proporção desconhecida. O algoritmo
-aprende a fronteira de normalidade diretamente sobre essa base
-contaminada, sem separação prévia. É o modo adotado neste trabalho, uma
-vez que os logs de produção do servidor da UEM não passaram por nenhuma
-triagem prévia~\cite{sklearn2024}.
-
-\subsubsection{Novelty Detection}
-
-Neste modo, os dados de treinamento são presumivelmente limpos — sem
-anomalias. O modelo aprende exclusivamente o padrão normal e, ao ser
-exposto a novos dados em produção, sinaliza como suspeitas as instâncias
-que se desviam desse padrão aprendido~\cite{sklearn2024}. A abordagem é
-adequada quando é possível curar um conjunto de dados de treinamento
-confiável, o que nem sempre é viável em ambientes operacionais reais.
-
-\subsection{Algoritmos Selecionados}
-
-A seleção dos algoritmos utilizados neste trabalho considerou quatro
-critérios: frequência de uso na literatura de detecção de anomalias em
-logs~\cite{allagi2019,yadav2020}, disponibilidade de implementações
-maduras na biblioteca Scikit-Learn~\cite{sklearn2024}, viabilidade
-computacional para datasets na escala de milhões de registros, e
-complementaridade conceitual — de forma que cada algoritmo capture tipos
-distintos de anomalia, enriquecendo a análise comparativa.
-
-Em relação ao trabalho anterior de /citeonline{erick2023}, que avaliou
-Isolation Forest, Local Outlier Factor e Robust Covariance, os dois
-últimos foram substituídos pelo One-Class SVM. O Local Outlier Factor
-apresenta complexidade quadrática durante a predição, o que o torna
-inviável para o volume de dados deste trabalho, além de não ter detectado
-nenhuma das anomalias inseridas no dataset de teste do trabalho anterior.
-O Robust Covariance pressupõe distribuição gaussiana multivariada nos
-dados, premissa incompatível com logs de acesso, que tipicamente exibem
-distribuições assimétricas e de cauda pesada.
-
-\subsubsection{Isolation Forest}
-
-O Isolation Forest é um algoritmo de aprendizado não supervisionado
-projetado especificamente para detecção de anomalias em datasets de alta
-dimensionalidade~\cite{sklearn2024}. Seu funcionamento é baseado em
-\textit{Random Forests}: um conjunto de árvores de decisão binárias é
-construído por meio de partições aleatórias — em cada nó, seleciona-se
-um atributo e um ponto de corte aleatórios dentro do intervalo de valores
-daquele atributo.
-
-A lógica subjacente é que pontos anômalos, por estarem em regiões
-esparsas do espaço de atributos, requerem menos partições para serem
-isolados do que pontos normais, que se encontram em regiões densas~\cite{
-	sklearn2024}. O score de anomalia de uma amostra é inversamente
-proporcional ao número médio de partições necessárias para isolá-la ao
-longo de todas as árvores do conjunto~\cite{liu2008isolation}. Esse design
-torna o algoritmo eficiente computacionalmente — sua complexidade é
-$O(n \log n)$ — e robusto para dados com muitas dimensões.
-
-\subsubsection{One-Class SVM}
-
-O One-Class SVM é um algoritmo de aprendizado não supervisionado que
-aprende uma fronteira de decisão no espaço de atributos transformado por
-um \textit{kernel}~\cite{scholkopf2001estimating}. O modelo é treinado
-exclusivamente sobre dados normais — ou sobre uma amostra deles — e
-aprende a hipersuperfície que melhor envolve esses dados, separando-os
-da origem no espaço transformado. Instâncias que, no momento da predição,
-se encontram do lado externo dessa fronteira são classificadas como
-anômalas~\cite{sklearn2024}.
-
-A diferença conceitual em relação ao Isolation Forest é relevante para
-os resultados: enquanto o Isolation Forest detecta pontos raros no
-espaço global de atributos, o One-Class SVM detecta desvios em relação
-à fronteira de normalidade — o que o torna particularmente sensível a
-valores extremos em qualquer dimensão~\cite{scholkopf2001estimating}.
-Essa característica é especialmente útil para detectar comportamentos
-de \textit{flood} — como um endereço IP que realiza dezenas de milhares
-de requisições por hora — que se destacam por valores extremos em
-atributos comportamentais, mas cujas requisições individuais podem não
-parecer anômalas de forma isolada. O \textit{kernel} RBF
-(\textit{Radial Basis Function}) é utilizado neste trabalho por sua
-eficácia em dados de alta dimensionalidade sem estrutura linear aparente.
-
-% ======================
-% METODOLOGIA
-% ======================
-\chapter{Metodologia}
-
-% ======================
-% RESULTADOS
-% ======================
-\chapter{Resultados}
-Apresente os resultados obtidos.
-
-% ======================
-% CONCLUSÃO
-% ======================
-\chapter{Conclusão}
-Conclusões finais e trabalhos futuros.
+...
 
 % ======================
 % REFERÊNCIAS
