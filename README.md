@@ -17,6 +17,11 @@ pip install -r requirements.txt
 pip freeze > requirements.txt
 ```
 
+- Notebook para Markdown
+```
+jupyter nbconvert --to markdown notebook.ipynb
+```
+
 ## Possiveis problemas
 
 Caso o kernel do notebook não esteja encontrando alguma biblioteca, execute:
