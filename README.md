@@ -10,6 +10,14 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Increase Swapfile temporarily
+```
+sudo fallocate -l 4G /swapfile_extra
+sudo chmod 600 /swapfile_extra
+sudo mkswap /swapfile_extra
+sudo swapon /swapfile_extra
+```
+
 ## Futuros trabalhos
 
 - Adição de bibliotecas
