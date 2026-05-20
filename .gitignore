@@ -7,3 +7,4 @@ data/raw/
 *.toc
 data/processed/*.parquet
 thesis/backup.txt
+notebooks/*md
